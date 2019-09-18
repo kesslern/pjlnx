@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "glob": "^7.1.4",
+    "irc-framework": "^4.4.0"
+  }
+}
