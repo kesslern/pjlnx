@@ -5,10 +5,6 @@ const plugins = require('require-all')({
   recursive: true
 });
 
-plugins.test.test1()
-
-console.log("main")
-
 var bot = new IRC.Client();
 bot.connect({
   host: 'irc.freenode.net',
@@ -39,3 +35,8 @@ bot.on('message', function(event) {
 bot.matchMessage(/^hi/, function(event) {
   event.reply('hello there!');
 });
+
+for (key in plugins) {
+  const { plugin } = plugins[key]
+  plugin && plugin(bot)
+}
