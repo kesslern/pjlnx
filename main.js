@@ -1,4 +1,8 @@
+const fs = require('fs')
+const hjson = require('hjson');
 const IRC = require("irc-framework")
+
+const config = hjson.parse(fs.readFileSync(__dirname + '/config.hjson', 'utf8'))
 
 const plugins = require('require-all')({
   dirname: __dirname + '/plugins',
@@ -9,7 +13,7 @@ var bot = new IRC.Client();
 bot.connect({
   host: 'irc.freenode.net',
   port: 6667,
-  nick: 'pjlnx',
+  nick: config.nick,
   encoding: 'utf8',
   auto_reconnect: true,
   auto_reconnect_wait: 4000,
