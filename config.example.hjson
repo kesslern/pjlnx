@@ -1,3 +1,5 @@
 {
   nick: 'pjlnx'
+
+  openWeatherMap: null
 }

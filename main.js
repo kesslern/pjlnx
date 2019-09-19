@@ -10,6 +10,9 @@ const plugins = require('require-all')({
 });
 
 var bot = new IRC.Client();
+
+bot.config = config
+
 bot.connect({
   host: 'irc.freenode.net',
   port: 6667,
