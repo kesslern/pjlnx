@@ -1,7 +1,9 @@
-const glob = require("glob")
 const IRC = require("irc-framework")
 
-glob("./plugins/*.js")
+const plugins = require('require-all')({
+  dirname: __dirname + '/plugins',
+  recursive: true
+});
 
 console.log("main")
 

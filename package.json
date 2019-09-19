@@ -1,6 +1,9 @@
 {
+  "scripts": {
+    "start": "node main.js"
+  },
   "dependencies": {
-    "glob": "^7.1.4",
-    "irc-framework": "^4.4.0"
+    "irc-framework": "^4.4.0",
+    "require-all": "^3.0.0"
   }
 }
