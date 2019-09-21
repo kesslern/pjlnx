@@ -1,5 +1,5 @@
 {
   nick: 'pjlnx'
-
+  command-prefix: !
   openWeatherMap: null
 }
