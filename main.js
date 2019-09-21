@@ -1,15 +1,31 @@
 const fs = require('fs')
 const hjson = require('hjson');
+const sqlite = require('sqlite')
+
 const IRC = require("irc-framework")
+const SQL = require('sql-template-strings')
 
 const config = hjson.parse(fs.readFileSync(__dirname + '/config.hjson', 'utf8'))
+const databasePromise = sqlite.open('./database.sqlite')
+
+databasePromise.then(db => db.migrate())
 
 const plugins = require('require-all')({
   dirname: __dirname + '/plugins',
   recursive: true
 });
 
-var bot = new IRC.Client();
+const getValue = async (plugin, key) => {
+  const db = await databasePromise
+  return db.get(SQL`SELECT value FROM plugin_data WHERE plugin=${plugin} AND key=${key}`)
+}
+
+const setValue = async (plugin, key, value) => {
+  const db = await databasePromise
+  db.run(SQL`INSERT INTO plugin_data (plugin, key, value) VALUES (${plugin}, ${key}, ${value})`)
+}
+
+const bot = new IRC.Client();
 
 bot.config = config
 
@@ -68,10 +84,20 @@ bot.on('message', function(event) {
   }
 })
 
+bot.command(/^set [^\s]+ .+$/, async event => {
+    const [_, key, value] = event.commandBody.match(/^set ([^\s]+) (.+)$/)
+    setValue('test', key, value)
+    event.reply(`Set ${key}`)
+})
+
+bot.command(/^get .+$/, async event => {
+    const body = event.commandBody.match(/^get (.+)$/)[1]
+    const { value } = await getValue('test', body)
+    event.reply(`Value: ${value}`)
+})
+
 for (key in plugins) {
   const { plugin, name } = plugins[key]
-
   console.log(`Loading plugin ${name}`)
-
   plugin(bot)
 }
