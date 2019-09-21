@@ -84,20 +84,14 @@ bot.on('message', function(event) {
   }
 })
 
-bot.command(/^set [^\s]+ .+$/, async event => {
-    const [_, key, value] = event.commandBody.match(/^set ([^\s]+) (.+)$/)
-    setValue('test', key, value)
-    event.reply(`Set ${key}`)
-})
-
-bot.command(/^get .+$/, async event => {
-    const body = event.commandBody.match(/^get (.+)$/)[1]
-    const { value } = await getValue('test', body)
-    event.reply(`Value: ${value}`)
-})
-
 for (key in plugins) {
   const { plugin, name } = plugins[key]
   console.log(`Loading plugin ${name}`)
-  plugin(bot)
+
+  const dbInterface = {
+    get: key => getValue(name, key),
+    set: (key, value) => setValue(name, key, value)
+  }
+
+  plugin(bot, dbInterface)
 }
