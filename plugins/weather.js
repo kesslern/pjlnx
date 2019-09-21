@@ -50,5 +50,6 @@ const plugin = bot => {
 }
 
 module.exports = {
-  plugin
+  name: 'weather',
+  plugin,
 }

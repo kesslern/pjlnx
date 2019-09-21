@@ -8,5 +8,6 @@ const plugin = (bot) => {
 }
 
 module.exports = {
+  name: 'advice',
   plugin
 }

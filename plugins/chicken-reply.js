@@ -27,5 +27,6 @@ const plugin = (bot) => {
 }
 
 module.exports = {
+  name: 'chicken-reply',
   plugin
 }

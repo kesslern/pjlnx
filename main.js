@@ -69,6 +69,9 @@ bot.on('message', function(event) {
 })
 
 for (key in plugins) {
-  const { plugin } = plugins[key]
-  plugin && plugin(bot)
+  const { plugin, name } = plugins[key]
+
+  console.log(`Loading plugin ${name}`)
+
+  plugin(bot)
 }
