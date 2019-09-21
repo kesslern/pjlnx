@@ -13,9 +13,11 @@ var bot = new IRC.Client();
 
 bot.config = config
 
+console.log(`Connecting to ${config.host}:${config.port} as ${config.nick}`)
+
 bot.connect({
-  host: 'irc.freenode.net',
-  port: 6667,
+  host: config.host,
+  port: config.port,
   nick: config.nick,
   encoding: 'utf8',
   auto_reconnect: true,
