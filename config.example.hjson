@@ -1,7 +1,15 @@
 {
   host: irc.freenode.net
   port: 6667
-  nick: 'pjlnx'
+
+  nick: pjlnx
+  username: null
+  realname: pjlnx
+
+  authentcate_user: null
+  authentcate_pass: null
+
   command-prefix: !
+
   openWeatherMap: null
 }

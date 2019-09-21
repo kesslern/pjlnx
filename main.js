@@ -18,7 +18,11 @@ console.log(`Connecting to ${config.host}:${config.port} as ${config.nick}`)
 bot.connect({
   host: config.host,
   port: config.port,
+
   nick: config.nick,
+  username: config.username,
+  gecos: config.realname,
+
   encoding: 'utf8',
   auto_reconnect: true,
   auto_reconnect_wait: 4000,
@@ -29,6 +33,15 @@ bot.connect({
 
 bot.on('connected', () => {
   console.log("Successfully connected")
+  const {
+    nickserv_user: username,
+    nickserv_pass: password,
+   } = bot.config
+
+   if (username && password) {
+     console.log(`Authenticating as ${username}`)
+     bot.say('nickserv', `identify ${username} ${password}`);
+   }
 })
 
 bot.command = (regex, handler) => {
