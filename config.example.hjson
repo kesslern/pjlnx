@@ -10,6 +10,7 @@
   authentcate_pass: null
 
   command-prefix: !
+  admins: ['admin_user']
   
   openWeatherMap: null
 }

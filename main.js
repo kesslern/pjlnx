@@ -46,28 +46,45 @@ bot.on('connected', () => {
    }
 })
 
+function parseCommand(message) {
+  const prefix = bot.config['command-prefix']
+  if (message.startsWith(prefix)) {
+    return message.substring(1)
+  }
+}
+
+function handleCommand(event, regex, handler, adminOnly) {
+  event.commandBody = parseCommand(event.message)
+  if (!event.commandBody) return
+
+  const match = event.commandBody.match(regex)
+  if (!match) return
+
+  if (adminOnly && !bot.config['admins'].includes(event.nick)) {
+    console.log(`Preventing ${event.nick} from running admin command: ${event.commandBody}`)
+    return
+  }
+
+  console.log(`${event.nick} invoked command: ${event.commandBody}`)
+  handler(event)
+}
+
 bot.matchCommand = (regex, handler) => {
   bot.on('message', event => {
-    const prefix = bot.config['command-prefix']
-    const message = event.message
-    bot.config['command-prefix']
-    if (!message.startsWith(prefix)) return
-
-    event.commandBody = event.message.substring(1)
-    const match = event.commandBody.match(regex)
-
-    if (match !== null) {
-      handler(event)
-    }
+    handleCommand(event, regex, handler, false)
   })
 }
 
-bot.on('message', function(event) {
-  if (event.message.match(/^!join /)) {
-    var to_join = event.message.split(' ')[1]
-    event.reply('Joining ' + to_join + '..')
-    bot.join(to_join)
-  }
+bot.matchAdminCommand = (regex, handler) => {
+  bot.on('message', event => {
+    handleCommand(event, regex, handler, true)
+  })
+}
+
+bot.matchAdminCommand(/^join .+$/, async event => {
+    const channel = event.commandBody.match(/^join (.+)$/)[1]
+    event.reply(`Joining ${channel}...`)
+    bot.join(channel)
 })
 
 for (key in plugins) {
