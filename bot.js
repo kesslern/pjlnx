@@ -2,21 +2,22 @@ const fs = require('fs')
 const hjson = require('hjson');
 const IRC = require("irc-framework")
 
-const config = hjson.parse(fs.readFileSync(__dirname + '/config.hjson', 'utf8'))
+const bot = new IRC.Client()
+bot.config = hjson.parse(fs.readFileSync(__dirname + '/config.hjson', 'utf8'))
 
-const bot = new IRC.Client();
+const {
+  host, port, nick, username, realname
+} = bot.config
 
-bot.config = config
-
-console.log(`Connecting to ${config.host}:${config.port} as ${config.nick}`)
+console.log(`Connecting to ${host}:${port} as ${nick}`)
 
 bot.connect({
-  host: config.host,
-  port: config.port,
+  host: host,
+  port: port,
 
-  nick: config.nick,
-  username: config.username,
-  gecos: config.realname,
+  nick: nick,
+  username: username,
+  gecos: realname,
 
   encoding: 'utf8',
   auto_reconnect: true,
@@ -52,18 +53,18 @@ function parseCommand(message) {
 }
 
 function handleCommand(event, regex, handler, adminOnly) {
-  event.commandBody = parseCommand(event.message)
-  if (!event.commandBody) return
+  event.command = parseCommand(event.message)
+  if (!event.command) return
 
-  const match = event.commandBody.match(regex)
+  const match = event.command.match(regex)
   if (!match) return
 
   if (adminOnly && !bot.config['admins'].includes(event.nick)) {
-    console.log(`Preventing ${event.nick} from running admin command: ${event.commandBody}`)
+    console.log(`Preventing ${event.nick} from running admin command: ${event.command}`)
     return
   }
 
-  console.log(`${event.nick} invoked command: ${event.commandBody}`)
+  console.log(`${event.nick} invoked command: ${event.command}`)
   handler(event)
 }
 
@@ -80,7 +81,7 @@ bot.matchAdminCommand = (regex, handler) => {
 }
 
 bot.matchAdminCommand(/^join .+$/, async event => {
-    const channel = event.commandBody.match(/^join (.+)$/)[1]
+    const channel = event.command.match(/^join (.+)$/)[1]
     event.reply(`Joining ${channel}...`)
     bot.join(channel)
 })

@@ -13,7 +13,7 @@ const plugin = bot => {
   const apiKey = bot.config.openWeatherMap
 
   bot.matchCommand(/^weather \d{5}$/, async event => {
-    const zip = event.commandBody.match(/^weather (\d{5})$/)[1]
+    const zip = event.command.match(/^weather (\d{5})$/)[1]
     
     const response = await axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=${zip}&APPID=${apiKey}`)
     const weather = response.data
