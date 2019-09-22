@@ -46,7 +46,7 @@ bot.on('connected', () => {
    }
 })
 
-bot.command = (regex, handler) => {
+bot.matchCommand = (regex, handler) => {
   bot.on('message', event => {
     const prefix = bot.config['command-prefix']
     const message = event.message
