@@ -1,9 +1,10 @@
 const sqlite = require('sqlite')
 const SQL = require('sql-template-strings')
 
-const databasePromise = sqlite.open('./database.sqlite')
-
-databasePromise.then(db => db.migrate())
+const databasePromise = sqlite
+  .open('./database.sqlite')
+  .then(db => db.migrate())
+  .then(db => db)
 
 const getString = async (plugin, key) => {
   const db = await databasePromise
