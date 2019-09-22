@@ -44,6 +44,11 @@ bot.on('connected', () => {
      console.log(`Authenticating as ${username}`)
      bot.say('nickserv', `identify ${username} ${password}`);
    }
+
+   (bot.config['autojoin'] || []).forEach(channel => {
+    console.log(`Autojoining ${channel}...`)
+    bot.join(channel)
+   })
 })
 
 function parseCommand(message) {

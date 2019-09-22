@@ -11,6 +11,7 @@
 
   command-prefix: !
   admins: ['admin_user']
+  autojoin: ['#discodevs']
   
   openWeatherMap: null
 }
