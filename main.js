@@ -1,29 +1,15 @@
 const fs = require('fs')
 const hjson = require('hjson');
-const sqlite = require('sqlite')
-
 const IRC = require("irc-framework")
-const SQL = require('sql-template-strings')
+
+const database = require("./database")
 
 const config = hjson.parse(fs.readFileSync(__dirname + '/config.hjson', 'utf8'))
-const databasePromise = sqlite.open('./database.sqlite')
-
-databasePromise.then(db => db.migrate())
 
 const plugins = require('require-all')({
   dirname: __dirname + '/plugins',
   recursive: true
 });
-
-const getValue = async (plugin, key) => {
-  const db = await databasePromise
-  return db.get(SQL`SELECT value FROM plugin_data WHERE plugin=${plugin} AND key=${key}`)
-}
-
-const setValue = async (plugin, key, value) => {
-  const db = await databasePromise
-  db.run(SQL`INSERT INTO plugin_data (plugin, key, value) VALUES (${plugin}, ${key}, ${value})`)
-}
 
 const bot = new IRC.Client();
 
@@ -88,10 +74,5 @@ for (key in plugins) {
   const { plugin, name } = plugins[key]
   console.log(`Loading plugin ${name}`)
 
-  const dbInterface = {
-    get: key => getValue(name, key),
-    set: (key, value) => setValue(name, key, value)
-  }
-
-  plugin(bot, dbInterface)
+  plugin(bot, database(name))
 }

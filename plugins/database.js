@@ -8,7 +8,7 @@ const plugin = (bot, database) => {
 
   bot.command(/^get .+$/, async event => {
       const key = event.commandBody.match(/^get (.+)$/)[1]
-      const { value } = await database.get(key)
+      const value = await database.get(key)
       event.reply(`Value: ${value}`)
   })
 }

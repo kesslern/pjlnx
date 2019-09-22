@@ -1,9 +1,9 @@
 -- Up 
 CREATE TABLE plugin_data (
-  id INTEGER PRIMARY KEY, 
   plugin TEXT,
   key TEXT,
-  value TEXT
+  value TEXT,
+  PRIMARY KEY (plugin, key)
 );
  
 -- Down 
