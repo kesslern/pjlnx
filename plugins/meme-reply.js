@@ -1,5 +1,5 @@
 responses = [
-  [/69((?:!|\?)*)$/i, 'nice'],
+  [/69/i, 'nice'],
   [/what((?:!|\?)*)$/i, 'chicken butt'],
   [/why((?:!|\?)*)$/i, 'chicken thigh'],
   [/wat((?:!|\?)*)$/i, 'chicken bat'],
@@ -28,6 +28,6 @@ const plugin = (bot) => {
 }
 
 module.exports = {
-  name: 'chicken-reply',
+  name: 'meme-reply',
   plugin
 }
