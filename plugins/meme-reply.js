@@ -1,5 +1,6 @@
 responses = [
   [/69/i, 'nice'],
+  [/420/i, 'smoke weed'],
   [/what((?:!|\?)*)$/i, 'chicken butt'],
   [/why((?:!|\?)*)$/i, 'chicken thigh'],
   [/wat((?:!|\?)*)$/i, 'chicken bat'],
