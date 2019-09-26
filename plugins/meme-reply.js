@@ -1,4 +1,6 @@
 responses = [
+  [/69/i, 'nice'],
+  [/420/i, 'smoke weed'],
   [/what((?:!|\?)*)$/i, 'chicken butt'],
   [/why((?:!|\?)*)$/i, 'chicken thigh'],
   [/wat((?:!|\?)*)$/i, 'chicken bat'],
@@ -20,13 +22,13 @@ const plugin = (bot) => {
         ? it => it.toUpperCase()
         : it => it
 
-      const punctuation = event.message.match(regex)[1]
+      const punctuation = event.message.match(regex)[1] || ''
       event.reply(modifier(reply) + punctuation);
     })
   })
 }
 
 module.exports = {
-  name: 'chicken-reply',
+  name: 'meme-reply',
   plugin
 }
