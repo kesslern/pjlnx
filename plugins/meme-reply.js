@@ -21,7 +21,7 @@ const plugin = (bot) => {
         ? it => it.toUpperCase()
         : it => it
 
-      const punctuation = event.message.match(regex)[1]
+      const punctuation = event.message.match(regex)[1] || ''
       event.reply(modifier(reply) + punctuation);
     })
   })
