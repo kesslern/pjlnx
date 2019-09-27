@@ -6,13 +6,13 @@
   username: null
   realname: pjlnx
 
-  authentcate_user: null
-  authentcate_pass: null
+  nickserv-user: null
+  nickserv-pass: null
 
   command-prefix: !
   admins: ['admin_user']
   autojoin: ['#discodevs']
 
-  wolframAlpha: null
-  openWeatherMap: null
+  wolfram-alpha: null
+  open-weather-map: null
 }

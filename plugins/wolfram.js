@@ -4,7 +4,7 @@ const parseString = require('xml2js').parseString
 const plugin = bot => {
   const api = {
     url: 'http://api.wolframalpha.com/v2/query',
-    key: bot.config.wolframAlpha,
+    key: bot.config['wolfram-alpha'],
   }
 
   bot.matchCommand(/^(wa|wolfram) .+/, async event => {

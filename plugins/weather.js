@@ -12,7 +12,7 @@ const formatDate = (date, timezone) => {
 }
 
 const plugin = bot => {
-  const apiKey = bot.config.openWeatherMap
+  const apiKey = bot.config['open-weather-map']
 
   bot.matchCommand(/^weather \d{5}$/, async event => {
     const zip = event.command.match(/^weather (\d{5})$/)[1]

@@ -27,7 +27,7 @@ bot.connect({
 
 bot.on('connected', () => {
   console.log('Successfully connected')
-  const { nickserv_user: username, nickserv_pass: password } = bot.config
+  const { 'nickserv-user': username, 'nickserv-pass': password } = bot.config
 
   if (username && password) {
     console.log(`Authenticating as ${username}`)
