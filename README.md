@@ -10,21 +10,28 @@ Install dependencies with `yarn install`, then copy `config.example.hjson` to `c
 
 Each javascript file in `plugins/` will be loaded as a plugin.
 
-Plugin exports:
+Each plugin must have two exports:
 
 | Key      | Export                          |
 | -------- | ------------------------------- |
 | `name`   | The name of the module (string) |
 | `plugin` | The plugin setup function       |
 
-The plugin setup function will be executed when the bot starts.
+The `plugin` function will be executed when the bot starts.
 
-Parameters passed to the plugin function:
+Two parameters are passed to the `plugin` function:
 
-1. An object that implements the irc-framework [client api](https://github.com/kiwiirc/irc-framework/blob/master/docs/clientapi.md).
-2. The pjlnx database API, which implements two commands:
-   1. `get(key)`: retrieve an object from the database identified by `key`
-   2. `set(key, value)`: store `value` in the database identified by `key`
+1. A `bot` object that implements the irc-framework [client api](https://github.com/kiwiirc/irc-framework/blob/master/docs/clientapi.md).
+2. The pjlnx database API object.
+
+### Database API
+
+The database object has two functions:
+
+1. `get(key)`: retrieve an object from the database identified by `key`
+2. `set(key, value)`: store `value` in the database identified by `key`
+
+Each plugin has its own namespace identified by `name`, and keys will not conflict.
 
 ### pjlnx extensions to the client api
 
