@@ -21,7 +21,8 @@ const plugin = bot => {
         .filter(pod => pod['$'].id !== 'Input')
         .map(pod => pod.subpod.map(subpod => subpod.plaintext).flat())
         .join('-')
-      event.reply(`Result: ${result} | Input: ${input}`)
+
+      event.reply(`Result: ${result.replace(/\n/g, ' ')} | Input: ${input}`)
     })
   })
 }
