@@ -12,6 +12,7 @@
   command-prefix: !
   admins: ['admin_user']
   autojoin: ['#discodevs']
-  
+
+  wolframAlpha: null
   openWeatherMap: null
 }
