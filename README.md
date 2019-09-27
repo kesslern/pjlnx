@@ -11,10 +11,11 @@ Install dependencies with `yarn install`, then copy `config.example.hjson` to `c
 Each javascript file in `plugins/` will be loaded as a plugin.
 
 Plugin exports:
-| Key | Export |
-|----------|---------------------------------|
-| `name` | The name of the module (string) |
-| `plugin` | The plugin setup function |
+
+| Key      | Export                          |
+| -------- | ------------------------------- |
+| `name`   | The name of the module (string) |
+| `plugin` | The plugin setup function       |
 
 The plugin setup function will be executed when the bot starts.
 
