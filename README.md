@@ -35,14 +35,17 @@ Each plugin has its own namespace identified by `name`, and keys will not confli
 
 ### pjlnx extensions to the client api
 
-In addition to the irc-framework [client api](https://github.com/kiwiirc/irc-framework/blob/master/docs/clientapi.md) functions, pjlnx adds additional commands.
+In addition to the irc-framework [client api](https://github.com/kiwiirc/irc-framework/blob/master/docs/clientapi.md) functions, pjlnx adds additional properties.
 
 #### matchCommand
 
 `.matchCommand(match_regex, cb)`
-Call `cb()` when any incoming message matches match_regex.
+
+Call `cb()` when any incoming message is prefixed with the `command-prefix` from `config.hjson` and the rest of the command matches `match_regex`.
 
 #### config
+
+`.config`
 
 Access to the config object loaded from `config.hjson`.
 
