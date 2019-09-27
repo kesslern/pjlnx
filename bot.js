@@ -1,13 +1,11 @@
 const fs = require('fs')
-const hjson = require('hjson');
-const IRC = require("irc-framework")
+const hjson = require('hjson')
+const IRC = require('irc-framework')
 
 const bot = new IRC.Client()
 bot.config = hjson.parse(fs.readFileSync(__dirname + '/config.hjson', 'utf8'))
 
-const {
-  host, port, nick, username, realname
-} = bot.config
+const { host, port, nick, username, realname } = bot.config
 
 console.log(`Connecting to ${host}:${port} as ${nick}`)
 
@@ -28,21 +26,18 @@ bot.connect({
 })
 
 bot.on('connected', () => {
-  console.log("Successfully connected")
-  const {
-    nickserv_user: username,
-    nickserv_pass: password,
-   } = bot.config
+  console.log('Successfully connected')
+  const { nickserv_user: username, nickserv_pass: password } = bot.config
 
-   if (username && password) {
-     console.log(`Authenticating as ${username}`)
-     bot.say('nickserv', `identify ${username} ${password}`);
-   }
+  if (username && password) {
+    console.log(`Authenticating as ${username}`)
+    bot.say('nickserv', `identify ${username} ${password}`)
+  }
 
-   (bot.config['autojoin'] || []).forEach(channel => {
+  ;(bot.config['autojoin'] || []).forEach(channel => {
     console.log(`Autojoining ${channel}...`)
     bot.join(channel)
-   })
+  })
 })
 
 function parseCommand(message) {
@@ -60,7 +55,9 @@ function handleCommand(event, regex, handler, adminOnly) {
   if (!match) return
 
   if (adminOnly && !bot.config['admins'].includes(event.nick)) {
-    console.log(`Preventing ${event.nick} from running admin command: ${event.command}`)
+    console.log(
+      `Preventing ${event.nick} from running admin command: ${event.command}`
+    )
     return
   }
 
@@ -81,9 +78,9 @@ bot.matchAdminCommand = (regex, handler) => {
 }
 
 bot.matchAdminCommand(/^join .+$/, async event => {
-    const channel = event.command.match(/^join (.+)$/)[1]
-    event.reply(`Joining ${channel}...`)
-    bot.join(channel)
+  const channel = event.command.match(/^join (.+)$/)[1]
+  event.reply(`Joining ${channel}...`)
+  bot.join(channel)
 })
 
 module.exports = bot

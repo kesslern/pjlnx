@@ -29,6 +29,6 @@ const setObject = async (plugin, key, value) =>
   setString(plugin, key, JSON.stringify(value))
 
 module.exports = plugin => ({
-  get: (key) => getObject(plugin, key),
+  get: key => getObject(plugin, key),
   set: (key, value) => setObject(plugin, key, value),
 })

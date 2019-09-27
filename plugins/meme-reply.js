@@ -14,21 +14,21 @@ responses = [
   [/how((?:!|\?)*)$/i, 'chicken plow'],
 ]
 
-const plugin = (bot) => {
+const plugin = bot => {
   responses.forEach(([regex, reply]) => {
     bot.matchMessage(regex, event => {
-      
-      const modifier = event.message.toUpperCase() === event.message
-        ? it => it.toUpperCase()
-        : it => it
+      const modifier =
+        event.message.toUpperCase() === event.message
+          ? it => it.toUpperCase()
+          : it => it
 
       const punctuation = event.message.match(regex)[1] || ''
-      event.reply(modifier(reply) + punctuation);
+      event.reply(modifier(reply) + punctuation)
     })
   })
 }
 
 module.exports = {
   name: 'meme-reply',
-  plugin
+  plugin,
 }

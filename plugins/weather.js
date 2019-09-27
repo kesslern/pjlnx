@@ -1,12 +1,14 @@
 const axios = require('axios')
 
-const c2f = celsius => celsius * 9/5 + 32
+const c2f = celsius => (celsius * 9) / 5 + 32
 const k2c = kelvin => kelvin - 273.15
 const k2f = kelvin => c2f(k2c(kelvin))
 
 const formatNumber = num => `${num}`.slice(0, 4)
 const formatDate = (date, timezone) => {
-  return new Date((date + timezone)*1000).toLocaleTimeString("en-US", { timeZone: "UTC" });
+  return new Date((date + timezone) * 1000).toLocaleTimeString('en-US', {
+    timeZone: 'UTC',
+  })
 }
 
 const plugin = bot => {
@@ -14,8 +16,10 @@ const plugin = bot => {
 
   bot.matchCommand(/^weather \d{5}$/, async event => {
     const zip = event.command.match(/^weather (\d{5})$/)[1]
-    
-    const response = await axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=${zip}&APPID=${apiKey}`)
+
+    const response = await axios.get(
+      `http://api.openweathermap.org/data/2.5/weather?zip=${zip}&APPID=${apiKey}`
+    )
     const weather = response.data
 
     const temp = {
@@ -45,8 +49,8 @@ const plugin = bot => {
       `Sunset: ${formatDate(sunset, timezone)}`,
     ]
 
-    event.reply(currentWeather.join(" | "))
-  }) 
+    event.reply(currentWeather.join(' | '))
+  })
 }
 
 module.exports = {

@@ -2,9 +2,8 @@ const bot = require('./bot')
 const database = require('./database')
 const plugins = require('require-all')({
   dirname: __dirname + '/plugins',
-  recursive: true
-});
-
+  recursive: true,
+})
 
 for (key in plugins) {
   const { plugin, name } = plugins[key]

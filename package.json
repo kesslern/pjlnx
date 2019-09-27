@@ -10,5 +10,15 @@
     "sql-template-strings": "^2.2.2",
     "sqlite": "^3.0.3",
     "xml2js": "^0.4.22"
+  },
+  "devDependencies": {
+    "husky": "^3.0.5",
+    "prettier": "1.18.2",
+    "pretty-quick": "^1.11.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
