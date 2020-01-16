@@ -7,9 +7,9 @@
     "hjson": "^3.1.2",
     "irc-framework": "^4.4.0",
     "require-all": "^3.0.0",
-    "safer-eval": "^1.3.5",
     "sql-template-strings": "^2.2.2",
     "sqlite": "^3.0.3",
+    "vm2": "^3.8.4",
     "xml2js": "^0.4.22"
   },
   "devDependencies": {

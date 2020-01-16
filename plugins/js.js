@@ -1,9 +1,10 @@
-const eval = require('safer-eval')
+const { VM } = require('vm2')
+const vm = new VM()
 
 const plugin = bot => {
   bot.matchCommand(/^js .+$/, async event => {
     const code = event.command.match(/^js (.+)$/)[1]
-    const result = eval(code)
+    const result = vm.run(code)
     event.reply(`Result: ${result}`)
   })
 }
