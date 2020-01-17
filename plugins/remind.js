@@ -1,4 +1,4 @@
-var parse = require('parse-duration')
+const parse = require('parse-duration')
 const prettyMilliseconds = require('pretty-ms')
 
 const plugin = bot => {

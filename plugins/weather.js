@@ -40,7 +40,7 @@ function generateWeatherString(weather) {
   ].join(' | ')
 }
 
-function handleError(event, error) {
+function handleError(event, e) {
   console.log(e)
   event.reply("Oops! Something went wrong. I can't get the weather right now.")
 }
@@ -48,8 +48,8 @@ function handleError(event, error) {
 const plugin = bot => {
   const apiKey = bot.config['open-weather-map']
 
-  bot.matchCommand(/^weather \d{5}$/, async event => {
-    const zip = event.command.match(/^weather (\d{5})$/)[1]
+  bot.matchCommand(/^weather (\d{5})$/, async (event, match) => {
+    const zip = match[1]
 
     try {
       const response = await axios.get(
@@ -63,8 +63,8 @@ const plugin = bot => {
     }
   })
 
-  bot.matchCommand(/^weather .*$/, async event => {
-    const city = event.command.match(/^weather (.*)$/)[1]
+  bot.matchCommand(/^weather (.*)$/, async (event, match) => {
+    const city = match[1]
 
     try {
       const response = await axios.get(
