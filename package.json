@@ -4,8 +4,11 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "datejs": "^1.0.0-rc3",
     "hjson": "^3.1.2",
     "irc-framework": "^4.4.0",
+    "parse-duration": "^0.1.2",
+    "pretty-ms": "^5.1.0",
     "require-all": "^3.0.0",
     "sql-template-strings": "^2.2.2",
     "sqlite": "^3.0.3",
