@@ -7,6 +7,8 @@ const state = {
 }
 
 const plugin = bot => {
+  const prefix = bot.config['command-prefix']
+
   bot.matchCommand(/^riddle$/, async event => {
     if (!state.riddling) {
       state.riddling = true
@@ -24,7 +26,9 @@ const plugin = bot => {
 
       event.reply(riddle)
     } else {
-      event.reply("You're already being riddled!")
+      event.reply(
+        `You're already being riddled! Give up? Get an answer with ${prefix}answer`
+      )
     }
   })
 
