@@ -62,7 +62,7 @@ function handleCommand(event, regex, handler, adminOnly) {
   }
 
   console.log(`${event.nick} invoked command: ${event.command}`)
-  handler(event)
+  handler(event, match)
 }
 
 bot.matchCommand = (regex, handler) => {
