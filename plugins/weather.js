@@ -63,7 +63,7 @@ const plugin = bot => {
     }
   })
 
-  bot.matchCommand(/^weather (.*)$/, async (event, match) => {
+  bot.matchCommand(/^weather ([^\d]*)$/, async (event, match) => {
     const city = match[1]
 
     try {
