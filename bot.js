@@ -3,7 +3,9 @@ const hjson = require('hjson')
 const IRC = require('irc-framework')
 
 const bot = new IRC.Client()
-bot.config = hjson.parse(fs.readFileSync(__dirname + '/config.hjson', 'utf8'))
+bot.config = hjson.parse(
+  fs.readFileSync(process.cwd() + '/config.hjson', 'utf8')
+)
 
 const { host, port, nick, username, realname } = bot.config
 
@@ -34,7 +36,7 @@ bot.on('connected', () => {
     bot.say('nickserv', `identify ${username} ${password}`)
   }
 
-  ;(bot.config['autojoin'] || []).forEach(channel => {
+  ;(bot.config['autojoin'] || []).forEach((channel) => {
     console.log(`Autojoining ${channel}...`)
     bot.join(channel)
   })
@@ -66,18 +68,18 @@ function handleCommand(event, regex, handler, adminOnly) {
 }
 
 bot.matchCommand = (regex, handler) => {
-  bot.on('message', event => {
+  bot.on('message', (event) => {
     handleCommand(event, regex, handler, false)
   })
 }
 
 bot.matchAdminCommand = (regex, handler) => {
-  bot.on('message', event => {
+  bot.on('message', (event) => {
     handleCommand(event, regex, handler, true)
   })
 }
 
-bot.matchAdminCommand(/^join .+$/, async event => {
+bot.matchAdminCommand(/^join .+$/, async (event) => {
   const channel = event.command.match(/^join (.+)$/)[1]
   event.reply(`Joining ${channel}...`)
   bot.join(channel)
