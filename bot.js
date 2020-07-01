@@ -11,6 +11,7 @@ const { host, port, nick, username, realname } = bot.config
 
 console.log(`Connecting to ${host}:${port} as ${nick}`)
 
+bot.commands = {}
 bot.connect({
   host: host,
   port: port,
@@ -84,8 +85,6 @@ bot.matchAdminCommand(/^join .+$/, async (event) => {
   event.reply(`Joining ${channel}...`)
   bot.join(channel)
 })
-
-bot.commands = {}
 
 bot.addCommand = (command, helpText) => {
   bot.commands[command] = helpText

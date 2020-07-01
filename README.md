@@ -31,11 +31,11 @@ The database object has two functions:
 1. `get(key)`: retrieve an object from the database identified by `key`
 2. `set(key, value)`: store `value` in the database identified by `key`
 
-Each plugin has its own namespace identified by `name`, and keys will not conflict.
+Each plugin has its own namespace identified by `name`, so identical keys between plugins will not conflict with each other.
 
-### pjlnx extensions to the client api
+### pjlnx extensions to the `irc-framework` client api
 
-In addition to the irc-framework [client api](https://github.com/kiwiirc/irc-framework/blob/master/docs/clientapi.md) functions, pjlnx adds additional properties.
+In addition to the irc-framework [client api](https://github.com/kiwiirc/irc-framework/blob/master/docs/clientapi.md) functions, pjlnx adds additional properties to the `bot` object passed to each plugin.
 
 #### matchCommand
 
@@ -47,7 +47,11 @@ Call `cb()` when any incoming message is prefixed with the `command-prefix` from
 
 `.config`
 
-Access to the config object loaded from `config.hjson`.
+Access to the config object loaded from `config.hjson`. Values can be accessed by the corresponding string key.
+
+### help (`addCommand`)
+
+Add commands to the inline help by calling `bot.addCommand(commandName, helpText)`.
 
 ## License
 
