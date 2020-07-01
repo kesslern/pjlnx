@@ -5,7 +5,7 @@ const plugin = (bot, database) => {
     event.reply(`Set ${key}`)
   })
 
-  bot.matchAdminCommand(/^get .+$/, async (event, match) => {
+  bot.matchAdminCommand(/^get (.+)$/, async (event, match) => {
     const key = match[1]
     const value = await database.get(key)
     event.reply(`Value: ${value}`)
