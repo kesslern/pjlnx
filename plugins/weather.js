@@ -1,10 +1,10 @@
 const axios = require('axios')
 
-const c2f = celsius => (celsius * 9) / 5 + 32
-const k2c = kelvin => kelvin - 273.15
-const k2f = kelvin => c2f(k2c(kelvin))
+const c2f = (celsius) => (celsius * 9) / 5 + 32
+const k2c = (kelvin) => kelvin - 273.15
+const k2f = (kelvin) => c2f(k2c(kelvin))
 
-const formatNumber = num => `${num}`.slice(0, 4)
+const formatNumber = (num) => `${num}`.slice(0, 4)
 const formatDate = (date, timezone) => {
   return new Date((date + timezone) * 1000).toLocaleTimeString('en-US', {
     timeZone: 'UTC',
@@ -45,8 +45,14 @@ function handleError(event, e) {
   event.reply("Oops! Something went wrong. I can't get the weather right now.")
 }
 
-const plugin = bot => {
+const plugin = (bot) => {
   const apiKey = bot.config['open-weather-map']
+  const prefix = bot.config['command-prefix']
+
+  bot.addCommand(
+    'weather',
+    `Usage: ${prefix}weather [zip] or ${prefix}weather [city]`
+  )
 
   bot.matchCommand(/^weather (\d{5})$/, async (event, match) => {
     const zip = match[1]

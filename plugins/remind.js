@@ -1,20 +1,22 @@
 const parse = require('parse-duration')
 const prettyMilliseconds = require('pretty-ms')
 
-const plugin = bot => {
-  bot.matchCommand(/^in$/, async event => {
-    const prefix = bot.config['command-prefix']
+const plugin = (bot) => {
+  const prefix = bot.config['command-prefix']
+
+  bot.addCommand('in', `Usage: ${prefix}in [time] [reminder]`)
+
+  bot.matchCommand(/^in$/, async (event) => {
     event.reply(`Usage: ${prefix}in [time] [reminder]`)
   })
 
-  bot.matchCommand(/^in .*$/, async event => {
+  bot.matchCommand(/^in .*$/, async (event) => {
     let command, duration, reminder
 
     try {
       command = event.command.match(/^in (.*?) (.*)$/)
       reminder = command[2]
     } catch (e) {
-      console.log(e)
       event.reply(`${event.nick}: Remind you of what?`)
       return
     }

@@ -6,10 +6,13 @@ const state = {
   answer: null,
 }
 
-const plugin = bot => {
+const plugin = (bot) => {
   const prefix = bot.config['command-prefix']
 
-  bot.matchCommand(/^riddle$/, async event => {
+  bot.addCommand('riddle', `Ask a riddle`)
+  bot.addCommand('answer', `Answer the current riddle`)
+
+  bot.matchCommand(/^riddle$/, async (event) => {
     if (!state.riddling) {
       state.riddling = true
       const { data } = await axios.get(
@@ -17,12 +20,8 @@ const plugin = bot => {
       )
       const $ = cheerio.load(data)
 
-      const riddle = $('.query-title-link')
-        .text()
-        .trim()
-      state.answer = $('.su-spoiler-content')
-        .text()
-        .trim()
+      const riddle = $('.query-title-link').text().trim()
+      state.answer = $('.su-spoiler-content').text().trim()
 
       event.reply(riddle)
     } else {
@@ -32,7 +31,7 @@ const plugin = bot => {
     }
   })
 
-  bot.matchCommand(/^answer$/, async event => {
+  bot.matchCommand(/^answer$/, async (event) => {
     if (state.riddling) {
       state.riddling = false
       event.reply(state.answer)

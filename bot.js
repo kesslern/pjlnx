@@ -45,7 +45,7 @@ bot.on('connected', () => {
 function parseCommand(message) {
   const prefix = bot.config['command-prefix']
   if (message.startsWith(prefix)) {
-    return message.substring(1)
+    return message.substring(1).trim()
   }
 }
 
@@ -84,5 +84,11 @@ bot.matchAdminCommand(/^join .+$/, async (event) => {
   event.reply(`Joining ${channel}...`)
   bot.join(channel)
 })
+
+bot.commands = {}
+
+bot.addCommand = (command, helpText) => {
+  bot.commands[command] = helpText
+}
 
 module.exports = bot
