@@ -1,4 +1,4 @@
-responses = [
+const responses = [
   [/69/i, 'nice'],
   [/420/i, 'smoke weed'],
   [/what((?:!|\?)*)$/i, 'chicken butt'],
@@ -14,13 +14,13 @@ responses = [
   [/how((?:!|\?)*)$/i, 'chicken plow'],
 ]
 
-const plugin = bot => {
+const plugin = (bot) => {
   responses.forEach(([regex, reply]) => {
-    bot.matchMessage(regex, event => {
+    bot.matchMessage(regex, (event) => {
       const modifier =
         event.message.toUpperCase() === event.message
-          ? it => it.toUpperCase()
-          : it => it
+          ? (it) => it.toUpperCase()
+          : (it) => it
 
       const punctuation = event.message.match(regex)[1] || ''
       event.reply(modifier(reply) + punctuation)
